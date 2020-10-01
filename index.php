@@ -22,37 +22,62 @@ if (isset($sub)) {
 
     switch ($switch) {
       case 'czk_eur': ?>
-
-        <?= $amount ?> Kč je <?= $amount / EUR_CZK ?> Eur.
+      <?
+      $final = $amount / CZK_EUR;
+      $currencyFrom = 'CZK'
+      $currencyTo = 'EUR'
+      ?>
     <?php
         break;
 
       case 'eur_czk': ?>
-
-        <?= $amount ?> Eur je <?= $amount * EUR_CZK ?> Kč.
+<?
+      $final = $amount * EUR_CZK;
+      $currencyFrom = 'EUR'
+      $currencyTo = 'CZK'
+      ?>
     <?php
         break;
         
     case 'czk_gbp': ?>
-        <?= $amount ?> Kč je <?= $amount / GBP_CZK ?> Liber.
+    <?
+        $final = $amount * CZK_GBP;
+      $currencyFrom = 'CZK'
+      $currencyTo = 'GBP'
+      ?>
     <?php
         break;
     
     case 'gpb_czk': ?>
-        <?= $amount ?> Liber je <?= $amount * EUR_CZK ?> Kč.
+    <?
+      $final = $amount / GBP_CZK;
+      $currencyFrom = 'GBP'
+      $currencyTo = 'CZK'
+      ?>
     <?php
         break;
 
     case 'czk_usd': ?>
-        <?= $amount ?> Kč je <?= $amount / USD_CZK ?> USD.
+     <?
+      $final = $amount / CZK_USD;
+      $currencyFrom = 'CZK'
+      $currencyTo = 'USD'
+     ?> 
     <?php
         break;
             
     default: ?>
-        <?= $amount ?> Usd je <?= $amount * USD_CZK ?> Kč.
+    <?
+      $final = $amount * USD_CZK;
+      $currencyFrom = 'USD'
+      $currencyTo = 'CZK'
+      ?>
     <?php
         break;
                     }
+    ?>
+                    Převod peněz z <?= $amount ?> <?= $currencyFrom ?> na <?= $final ?> <?= $currencyTo ?> 
+ <?
 } else { ?>
     <form action="index.php" method="post">
 Peníze: <input type="text" name="amount" id="amount"> <br>
