@@ -1,10 +1,14 @@
 <?php 
 $amount = filter_input(INPUT_POST, 'amount');
+$final = 0 ;
 define('EUR_CZK', 27);
 define('GBP_CZK', 30);
 define('USD_CZK', 23);
 $sub = filter_input(INPUT_POST, 'odeslat');
 $switch =  filter_input(INPUT_POST, 'switch');
+$curencyfrom;
+$curencyto;
+$text = "Výpočet Je Hotov " ;
 ?>
 
 <!DOCTYPE html>
@@ -21,63 +25,45 @@ $switch =  filter_input(INPUT_POST, 'switch');
 if (isset($sub)) {
 
     switch ($switch) {
-      case 'czk_eur': ?>
-      <?
-      $final = $amount / CZK_EUR;
-      $currencyFrom = 'CZK'
-      $currencyTo = 'EUR'
-      ?>
-    <?php
+    case 'czk_eur': 
+        $final = $amount / EUR_CZK ;
+        $curencyfrom = " CZK " ;
+        $curencyto = " EUR " ;
         break;
 
-      case 'eur_czk': ?>
-<?
-      $final = $amount * EUR_CZK;
-      $currencyFrom = 'EUR'
-      $currencyTo = 'CZK'
-      ?>
-    <?php
+    case 'eur_czk': 
+        $final = $amount * EUR_CZK ;
+        $curencyfrom = " EUR " ;
+        $curencyto = " CZK " ;
         break;
         
-    case 'czk_gbp': ?>
-    <?
-        $final = $amount * CZK_GBP;
-      $currencyFrom = 'CZK'
-      $currencyTo = 'GBP'
-      ?>
-    <?php
+    case 'czk_gbp': 
+        $final = $amount / GBP_CZK ;
+        $curencyfrom = " CZK " ;
+        $curencyto = " GBP " ;
         break;
     
-    case 'gpb_czk': ?>
-    <?
-      $final = $amount / GBP_CZK;
-      $currencyFrom = 'GBP'
-      $currencyTo = 'CZK'
-      ?>
-    <?php
+    case 'gbp_czk': 
+        $final = $amount * GBP_CZK ;
+        $curencyfrom = " GBP " ;
+        $curencyto = " CZK " ;
         break;
 
-    case 'czk_usd': ?>
-     <?
-      $final = $amount / CZK_USD;
-      $currencyFrom = 'CZK'
-      $currencyTo = 'USD'
-     ?> 
-    <?php
+    case 'czk_usd': 
+        $final = $amount / USD_CZK ;
+        $curencyfrom = " CZK " ;
+        $curencyto = " USD " ;
         break;
             
-    default: ?>
-    <?
-      $final = $amount * USD_CZK;
-      $currencyFrom = 'USD'
-      $currencyTo = 'CZK'
-      ?>
-    <?php
+    default: 
+        $final = $amount * USD_CZK ;
+        $curencyfrom = " USD " ;
+        $curencyto = " CZK " ;
         break;
                     }
-    ?>
-                    Převod peněz z <?= $amount ?> <?= $currencyFrom ?> na <?= $final ?> <?= $currencyTo ?> 
- <?
+        $all =$text . $amount . $curencyfrom . " = " . $final . $curencyto ?>
+<?= $all ?>
+<?php
 } else { ?>
     <form action="index.php" method="post">
 Peníze: <input type="text" name="amount" id="amount"> <br>
